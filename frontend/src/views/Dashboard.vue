@@ -1,4 +1,12 @@
 <template>
+  <div class="section-header">
+  <h2>Recent Expenses</h2>
+  <div>
+    <button @click="downloadCSV" class="view-all">⬇ Download CSV</button>
+    <router-link to="/expenses" class="view-all">View All</router-link>
+  </div>
+</div>
+
   <div class="dashboard">
     <!-- Stats Cards -->
     <div class="stats-cards">
@@ -253,6 +261,30 @@ console.log(getGroupTotal(1));
 
 const handleDeleteExpense = id => expenseStore.deleteExpense(id);
 const handleDeleteGroup = id => groupStore.deleteGroup(id);
+
+const downloadCSV = () => {
+  const rows = [
+    ['Title', 'Amount', 'Date', 'Group'],
+    ...expenseStore.expenses.map(e => [
+      e.expense_name,
+      e.amount,
+      formatDate(e.expense_date),
+      e.group_id || '-'
+    ])
+  ];
+
+  const csvContent = rows.map(r => r.join(',')).join('\n');
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+
+  const link = document.createElement('a');
+  link.href = url;
+  link.setAttribute('download', 'expenses.csv');
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
+
 </script>
 
 

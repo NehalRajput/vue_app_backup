@@ -6,13 +6,14 @@ use App\Models\Expense;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Helper\ApiResponse;
+use App\Exports\ExpensesExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ExpenseController extends Controller
 {
     public function index()
     {
         $expenses = Expense::where('user_id', Auth::id())->with('group')->get();
-
         return ApiResponse::success($expenses, 'Expenses retrieved successfully');
     }
 
@@ -67,5 +68,12 @@ class ExpenseController extends Controller
         $expense->delete();
 
         return ApiResponse::success([], 'Expense deleted successfully');
+    }
+
+  
+    public function export()
+    {
+        $fileName = 'expenses.csv';
+        return Excel::download(new ExpensesExport, $fileName, \Maatwebsite\Excel\Excel::CSV);
     }
 }
