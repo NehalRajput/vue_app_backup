@@ -6,7 +6,7 @@ use App\Models\Expense;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Helper\ApiResponse;
-use App\Exports\ExpensesExport;
+use App\Exports\ExpenseExport;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ExpenseController extends Controller
@@ -73,7 +73,27 @@ class ExpenseController extends Controller
   
     public function export()
     {
-        $fileName = 'expenses.csv';
-        return Excel::download(new ExpensesExport, $fileName, \Maatwebsite\Excel\Excel::CSV);
+        try {
+            // Get the authenticated user's ID
+            $userId = auth()->id();
+
+            // Check if user has expenses
+            $expenseCount = Expense::where('user_id', $userId)->count();
+            if ($expenseCount === 0) {
+                return ApiResponse::error('No expenses found for export');
+            }
+
+            // Generate a filename with timestamp
+            $fileName = 'expenses-' . now()->format('Y-m-d-H-i-s') . '.csv';
+
+            // Return the download response
+            return Excel::download(new ExpenseExport($userId), $fileName);
+        } catch (\Exception $e) {
+            // Log the error
+            Log::error('CSV Export failed: ' . $e->getMessage());
+
+            // Return an error message
+            return ApiResponse::error('Failed to export expenses: ' . $e->getMessage());
+        }
     }
 }

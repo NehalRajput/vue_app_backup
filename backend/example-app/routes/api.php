@@ -13,9 +13,10 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('groups', GroupController::class);
+    Route::get('/expenses/export', [ExpenseController::class, 'export']); 
     Route::apiResource('expenses', ExpenseController::class);
 
-    Route::get('/expenses/export', [ExpenseController::class, 'export']); // ✅ Move here
+    
 
     Route::delete('/logout',[AuthController::class, 'logout'])->name('logout');
     Route::get('/user', function (Request $request) {
@@ -23,6 +24,3 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 });
 //Route::get('/expenses/export', [ExpenseController::class, 'export']);
-
-
-

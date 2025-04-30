@@ -2,8 +2,9 @@
   <div class="section-header">
   <h2>Recent Expenses</h2>
   <div>
-    <button @click="downloadCSV" class="view-all">⬇ Download CSV</button>
+    <button @click="exportCSV" class="view-all">⬇ Download CSV</button>
     <router-link to="/expenses" class="view-all">View All</router-link>
+  
   </div>
 </div>
 
@@ -124,6 +125,7 @@ import { computed, onMounted, ref, watch } from 'vue';
 import { useExpenseStore } from '@/stores/expense';
 import { useGroupStore } from '@/stores/group';
 import { Chart, registerables } from 'chart.js';
+import api from '@/services/api';
 Chart.register(...registerables);
 
 const expenseStore = useExpenseStore();
@@ -255,35 +257,42 @@ const getGroupTotal = (groupId) => {
     .filter(e => e.group_id === groupId)
     .reduce((s, e) => s + (Number(e.amount) || 0), 0);
 };
-console.log(getGroupTotal(1));
 
-
-
-const handleDeleteExpense = id => expenseStore.deleteExpense(id);
-const handleDeleteGroup = id => groupStore.deleteGroup(id);
-
-const downloadCSV = () => {
-  const rows = [
-    ['Title', 'Amount', 'Date', 'Group'],
-    ...expenseStore.expenses.map(e => [
-      e.expense_name,
-      e.amount,
-      formatDate(e.expense_date),
-      e.group_id || '-'
-    ])
-  ];
-
-  const csvContent = rows.map(r => r.join(',')).join('\n');
-  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-  const url = URL.createObjectURL(blob);
-
-  const link = document.createElement('a');
-  link.href = url;
-  link.setAttribute('download', 'expenses.csv');
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
+const handleDeleteExpense = (id) => {
+  if (confirm("Are you sure you want to delete this expense?")) {
+    expenseStore.deleteExpense(id);
+  }
 };
+
+const handleDeleteGroup = (id) => {
+  if (confirm("Are you sure you want to delete this group?")) {
+    groupStore.deleteGroup(id);
+  }
+};
+
+const exportCSV = async () => {
+  try {
+    const response = await api.get("/api/expenses/export", {
+      responseType: 'blob', // Important for binary files
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      }
+    });
+
+    const blob = new Blob([response.data], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", "expenses.csv");
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  } catch (error) {
+    console.error("CSV Export Failed:", error);
+  }
+};
+
 
 </script>
 
