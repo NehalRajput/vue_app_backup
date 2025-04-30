@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Helper\ApiResponse;
 use App\Exports\ExpenseExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ExpenseController extends Controller
 {
@@ -96,4 +97,29 @@ class ExpenseController extends Controller
             return ApiResponse::error('Failed to export expenses: ' . $e->getMessage());
         }
     }
+
+
+
+    public function exportPdf()
+    {
+        // Get the authenticated user's ID
+        $userId = auth()->id();
+
+        // Fetch the user's expenses along with group data
+        $expenses = Expense::where('user_id', $userId)
+            ->with('group')
+            ->get();
+
+        // Check if the user has expenses
+        if ($expenses->isEmpty()) {
+            return response()->json(['error' => 'No expenses found'], 400);
+        }
+
+        // Load a view with the data and generate the PDF
+        $pdf = Pdf::loadView('expenses.pdf', compact('expenses'));
+
+        // Return the PDF download response
+        return $pdf->download('expenses-' . now()->format('Y-m-d-H-i-s') . '.pdf');
+    }
+
 }

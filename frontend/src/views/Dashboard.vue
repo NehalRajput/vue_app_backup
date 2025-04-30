@@ -3,6 +3,7 @@
   <h2>Recent Expenses</h2>
   <div>
     <button @click="exportCSV" class="view-all">⬇ Download CSV</button>
+    <button @click="exportPDF" class="view-all">⬇ Download PDF</button>
     <router-link to="/expenses" class="view-all">View All</router-link>
   
   </div>
@@ -290,6 +291,29 @@ const exportCSV = async () => {
     link.remove();
   } catch (error) {
     console.error("CSV Export Failed:", error);
+  }
+};
+
+const exportPDF = async () => {
+  try {
+    const response = await api.get("/api/expenses/export-pdf", {
+      responseType: 'blob', // Important for binary files
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      }
+    });
+
+    const blob = new Blob([response.data], { type: 'application/pdf' });
+    const url = window.URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", "expenses.pdf");
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  } catch (error) {
+    console.error("PDF Export Failed:", error);
   }
 };
 
