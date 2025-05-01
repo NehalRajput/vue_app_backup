@@ -25,6 +25,7 @@
 import { onMounted, defineEmits } from 'vue';
 import { useGroupStore } from '@/stores/Group';
 import DataTable from '@/components/DataTable.vue';
+import '@/assets/css/Group.css';
 
 defineEmits(['editGroup']);
 const groupStore = useGroupStore();
@@ -40,28 +41,3 @@ onMounted(() => {
 });
 </script>
 
-<style scoped>
-.actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 8px;
-}
-
-button {
-  padding: 6px 12px;
-  border-radius: 4px;
-  font-size: 0.875rem;
-  cursor: pointer;
-  border: none;
-}
-
-.edit {
-  background-color: #e0f2fe;
-  color: #0369a1;
-}
-
-.delete {
-  background-color: #fee2e2;
-  color: #b91c1c;
-}
-</style>

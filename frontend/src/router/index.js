@@ -2,10 +2,10 @@ import { createRouter, createWebHistory } from 'vue-router';
 import Dashboard from '../views/Dashboard.vue';
 import Expenses from '../views/Expenses.vue';
 import Groups from '../views/Groups.vue';
-import { useUserStore } from '../stores/User';  // Import the user store
+import { useUserStore } from '../stores/User';  
 
 const routes = [
-  { path: '/', component: Dashboard },
+  { path: '/', component: Dashboard},
   { path: '/expenses', component: Expenses, meta: { requiresAuth: true } },  // Protect this route
   { path: '/groups', component: Groups, meta: { requiresAuth: true } },      // Protect this route
   { path: '/login', component: () => import('../views/login.vue') },

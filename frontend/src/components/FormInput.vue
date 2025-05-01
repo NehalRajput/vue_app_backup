@@ -53,27 +53,32 @@
   </script>
   
   <style scoped>
-  .form-group {
-    display: flex;
-    flex-direction: column;
-  }
-  .form-label {
-    color: #ddd;
-    font-size: 0.9rem;
-    margin-bottom: 0.5rem;
-  }
-  .form-input {
-    padding: 0.75rem 1rem;
-    border: 1px solid #444;
-    border-radius: 0.5rem;
-    background: #111;
-    color: #eee;
-    font-size: 1rem;
-    outline: none;
-    transition: border-color 0.3s, background 0.3s;
-  }
-  .form-input:focus {
-    border-color: #fff;
-    background: #222;
-  }
-  </style>
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.form-label {
+  color: #333; /* Dark label */
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  
+}
+
+.form-input {
+  padding: 0.75rem 1rem;
+  border: 1px solid #ccc;      /* Light border */
+  border-radius: 0.5rem;
+  background: #fff;             /* White background */
+  color: #333;                  /* Dark text */
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s, background 0.3s;
+}
+
+.form-input:focus {
+  border-color: #007bff;        /* Blue focus border */
+  background: #f0f8ff;          /* Very light blue background on focus */
+}
+</style>

@@ -30,6 +30,7 @@
 
 <script setup>
 import { useUserStore } from '@/stores/User';
+import '@/assets/css/AppLayout.css';
 
 
 import { useRouter } from 'vue-router';
@@ -42,74 +43,3 @@ const logout = () => {
   router.push('/'); // Redirect to home page
 };
 </script>
-<style scoped>
-.app-layout {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-.app-header {
-  background-color: #111827;
-  color: white;
-  padding: 1rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.app-header h1 {
-  margin: 0;
-  font-size: 1.5rem;
-}
-
-.nav-links {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-}
-
-.nav-links a {
-  color: white;
-  text-decoration: none;
-  padding: 0.5rem;
-  border-radius: 4px;
-}
-
-.nav-links a:hover {
-  background-color: rgba(255, 255, 255, 0.2);
-}
-
-.nav-links a.router-link-exact-active {
-  background-color: rgba(255, 255, 255, 0.3);
-}
-
-button {
-  background: transparent;
-  border: 1px solid white;
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: rgba(255, 255, 255, 0.2);
-}
-
-.app-main {
-  flex: 1;
-  padding: 1rem;
-  max-width: 1200px;
-  margin: 0 auto;
-  width: 100%;
-  color: white;
-}
-
-.app-footer {
-  background-color: #111827;
-  color: white;
-  padding: 1rem;
-  text-align: center;
-}
-</style>

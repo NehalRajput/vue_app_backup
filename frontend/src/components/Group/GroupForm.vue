@@ -19,6 +19,8 @@
 import { ref, watch } from 'vue';
 import { useGroupStore } from '@/stores/Group';
 import FormInput from '@/components/FormInput.vue';
+import '@/assets/css/Group.css';
+
 
 const groupStore = useGroupStore();
 
@@ -66,36 +68,3 @@ const handleSubmit = async () => {
 };
 </script>
 
-<style scoped>
-.form-container {
-  max-width: 500px;
-  margin: 0 auto;
-  padding: 1.5rem;
-  background-color: #000;
-  border-radius: 0.5rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.form-title {
-  color: #fff;
-  text-align: center;
-  margin-bottom: 1.5rem;
-}
-
-.submit-button {
-  width: 100%;
-  padding: 0.75rem;
-  margin-top: 1.5rem;
-  background-color: #fff;
-  color: #000;
-  border: none;
-  border-radius: 0.25rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.submit-button:hover {
-  background-color: #ddd;
-}
-</style>

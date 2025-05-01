@@ -2,9 +2,9 @@
   <div>
     <div class="section-header">
       <h2>Recent Expenses</h2>
-      <div>
-        <button @click="exportCSV" class="view-all">⬇ Download CSV</button>
-        <button @click="exportPDF" class="view-all">⬇ Download PDF</button>
+      <div class="action-buttons">
+        <button @click="handleExportCSV" class="action-button">⬇ Export CSV</button>
+        <button @click="exportPDF" class="action-button">⬇ Download PDF</button>
         <router-link to="/expenses" class="view-all">View All</router-link>
       </div>
     </div>
@@ -50,15 +50,12 @@
           <h2>Recent Expenses</h2>
           <router-link to="/expenses" class="view-all">View All</router-link>
         </div>
-        <DataTable
-          :items="recentExpenses"
-          :columns="expenseColumns"
-        >
+        <DataTable :items="recentExpenses" :columns="expenseColumns">
           <template #amount="{ value }">${{ Number(value).toFixed(2) }}</template>
           <template #expense_date="{ value }">{{ formatDate(value) }}</template>
-          <template #group_id="{ value }">{{ value || '-' }}</template>
+          <template #group_id="{ value }">{{ getGroupName(value) }}</template>
           <template #actions="{ item }">
-            <button @click="handleDeleteExpense(item.id)" class="delete-btn">🔚</button>
+            <button @click="handleDeleteExpense(item.id)" class="delete-btn">Delete</button>
           </template>
           <template #empty>
             <p>No expenses recorded yet</p>
@@ -73,13 +70,10 @@
           <h2>Your Groups</h2>
           <router-link to="/groups" class="view-all">View All</router-link>
         </div>
-        <DataTable
-          :items="groups"
-          :columns="groupColumns"
-        >
+        <DataTable :items="groups" :columns="groupColumns">
           <template #total="{ item }">${{ Number(getGroupTotal(item.id)).toFixed(2) }}</template>
           <template #actions="{ item }">
-            <button @click="handleDeleteGroup(item.id)" class="delete-btn">🔚</button>
+            <button @click="handleDeleteGroup(item.id)" class="delete-btn">Delete</button>
           </template>
           <template #empty>
             <p>No groups created yet</p>
@@ -98,7 +92,8 @@ import { useGroupStore } from '@/stores/Group';
 import { Chart, registerables } from 'chart.js';
 import api from '@/services/api';
 import DataTable from '@/components/DataTable.vue';
-import '@/assets/styles/dashboard.css';
+import '@/assets/css/dashboard.css';
+import { exportCSV } from "@/utils/exportCSV";
 
 Chart.register(...registerables);
 
@@ -107,7 +102,6 @@ const groupStore = useGroupStore();
 const chartCanvas = ref(null);
 let chartInstance = null;
 
-// Table columns configuration
 const expenseColumns = [
   { key: 'expense_name', label: 'Title' },
   { key: 'amount', label: 'Amount' },
@@ -130,6 +124,7 @@ onMounted(() => {
 const updateChart = () => {
   if (!chartCanvas.value) return;
   if (chartInstance) chartInstance.destroy();
+
   const ctx = chartCanvas.value.getContext('2d');
   const data = prepareChartData();
 
@@ -174,34 +169,30 @@ watch(() => expenseStore.expenses, updateChart, { deep: true });
 
 const prepareChartData = () => {
   const expenses = expenseStore.expenses;
-  const groupedData = expenses.reduce((acc, e) => {
-    const key = e.group_id || 'Uncategorized';
-    acc[key] = (acc[key] || 0) + Number(e.amount);
-    return acc;
-  }, {});
 
-  const sortedEntries = Object.entries(groupedData).sort((a, b) => b[1] - a[1]);
-  let labels, data;
-  if (sortedEntries.length > 6) {
-    const top = sortedEntries.slice(0, 5);
-    const others = sortedEntries.slice(5).reduce((s, [, v]) => s + v, 0);
-    labels = [...top.map(([l]) => l), 'Others'];
-    data = [...top.map(([, v]) => v), others];
-  } else {
-    labels = sortedEntries.map(([l]) => l);
-    data = sortedEntries.map(([, v]) => v);
-  }
+  const labels = [];
+  const data = [];
+
+  expenses.forEach((e) => {
+    const groupName = getGroupName(e.group_id) || 'Uncategorized';
+    const label = `${groupName} - ${e.expense_name}`;
+    labels.push(label);
+    data.push(Number(e.amount));
+  });
 
   const colors = [
     '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF',
     '#FF9F40', '#8AC24A', '#607D8B', '#E91E63', '#00BCD4'
-  ].slice(0, labels.length);
+  ];
+  while (colors.length < labels.length) {
+    colors.push('#'+Math.floor(Math.random()*16777215).toString(16)); // Random extra colors
+  }
 
   return {
     labels,
     datasets: [{
       data,
-      backgroundColor: colors,
+      backgroundColor: colors.slice(0, labels.length),
       borderWidth: 1,
       borderColor: '#333'
     }]
@@ -245,6 +236,12 @@ const getGroupTotal = (groupId) => {
     .reduce((s, e) => s + (Number(e.amount) || 0), 0);
 };
 
+const getGroupName = (groupId) => {
+  if (!groupId) return '-';
+  const group = groupStore.groups.find(g => g.id === groupId);
+  return group ? group.group_name : 'Unknown';
+};
+
 const handleDeleteExpense = (id) => {
   if (confirm("Are you sure you want to delete this expense?")) {
     expenseStore.deleteExpense(id);
@@ -257,27 +254,8 @@ const handleDeleteGroup = (id) => {
   }
 };
 
-const exportCSV = async () => {
-  try {
-    const response = await api.get("/api/expenses/export", {
-      responseType: 'blob',
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`
-      }
-    });
-
-    const blob = new Blob([response.data], { type: 'text/csv' });
-    const url = window.URL.createObjectURL(blob);
-
-    const link = document.createElement("a");
-    link.href = url;
-    link.setAttribute("download", "expenses.csv");
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-  } catch (error) {
-    console.error("CSV Export Failed:", error);
-  }
+const handleExportCSV = () => {
+  exportCSV();
 };
 
 const exportPDF = async () => {

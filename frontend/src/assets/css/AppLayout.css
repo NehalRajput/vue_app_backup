@@ -1,0 +1,80 @@
+.app-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f4f4f4;  /* Light grey background */
+  color: #333;                /* Dark text for contrast */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.app-header {
+  background-color: #e0e0e0;  /* Light grey header */
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #333;                /* Dark heading */
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.25rem;
+  align-items: center;
+}
+
+.nav-links a {
+  color: #333;                /* Dark text links */
+  text-decoration: none;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  transition: background 0.3s, color 0.3s;
+  font-weight: 500;
+}
+
+.nav-links a:hover {
+  background-color: #ccc;     /* Light grey hover */
+}
+
+.nav-links a.router-link-exact-active {
+  background-color: #fff;     /* White active */
+  color: #000;                /* Dark text on active */
+}
+
+button {
+  background: transparent;
+  border: 1px solid #333;     /* Dark border */
+  color: #333;                /* Dark text */
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+}
+
+button:hover {
+  background-color: #ccc;     /* Light grey hover */
+  color: #333;
+}
+
+.app-main {
+  flex: 1;
+  padding: 2rem 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.app-footer {
+  background-color: #e0e0e0;  /* Light grey footer */
+  color: #333;                /* Dark text */
+  padding: 1rem;
+  text-align: center;
+  border-top: 1px solid #ccc;
+}

@@ -1,0 +1,128 @@
+.form-wrapper {
+  max-width: 500px;
+  margin: 2rem auto;
+  background: #f9f9f9; /* Light background */
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1); /* Lighter shadow */
+  color: #333; /* Dark text */
+}
+
+.form-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: black; /* Dark title */
+}
+
+.form-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  color: black;
+}
+
+input,
+select,
+textarea {
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ddd; /* Light border */
+  background: #fff; /* White background */
+  color: #333; /* Dark text */
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.2s;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #007bff; /* Blue focus border */
+}
+
+.form-button {
+  padding: 0.75rem 1rem;
+  background: #007bff; /* Blue background */
+  color: #fff; /* White text */
+  font-weight: 600;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s ease;
+}
+
+.form-button:hover {
+  background: #0056b3; /* Darker blue on hover */
+}
+
+.expense-list {
+  width: 100%;
+  background-color: #f9f9f9; /* Light background */
+  padding: 16px;
+  border-radius: 12px;
+  color: #333; /* Dark text */
+}
+
+.amount {
+  font-weight: 600;
+  color: #333; /* Dark color for amount */
+}
+
+.group-tag {
+  background-color: #e0e0e0; /* Light gray background */
+  color: #333; /* Dark text */
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+button {
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: 0.2s ease;
+}
+
+.edit {
+  background-color: #fff; /* White background for edit */
+  color: #333; /* Dark text */
+}
+
+.edit:hover {
+  background-color: #e0e0e0; /* Light gray on hover */
+}
+
+.delete {
+  background-color: #fff; /* White background for delete */
+  color: #333; /* Dark text */
+}
+
+.delete:hover {
+  background-color: #e0e0e0; /* Light gray on hover */
+}
+
+/* Optional: Table tweaks */
+.expense-list table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 16px;
+}
+
+.expense-list th,
+.expense-list td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd; /* Light border */
+}

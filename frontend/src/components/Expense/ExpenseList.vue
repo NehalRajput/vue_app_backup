@@ -33,6 +33,7 @@
 import { computed, onMounted } from 'vue';
 import { useExpenseStore } from '@/stores/Expense';
 import { useGroupStore } from '@/stores/Group';
+import '@/assets/css/Expense.css';
 import DataTable from '@/components/DataTable.vue';
 
 const emit = defineEmits(['editExpense']);
@@ -74,42 +75,3 @@ onMounted(() => {
 });
 </script>
 
-<style scoped>
-.expense-list {
-  width: 100%;
-}
-
-.amount {
-  font-weight: 500;
-}
-
-.group-tag {
-  background-color: #f1f5f9;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 0.85rem;
-}
-
-.actions {
-  display: flex;
-  gap: 8px;
-}
-
-button {
-  padding: 6px 12px;
-  border-radius: 4px;
-  font-size: 0.875rem;
-  cursor: pointer;
-  border: none;
-}
-
-.edit {
-  background-color: #e0f2fe;
-  color: #0369a1;
-}
-
-.delete {
-  background-color: #fee2e2;
-  color: #b91c1c;
-}
-</style>

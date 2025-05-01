@@ -1,6 +1,6 @@
 <template>
   <div class="form-wrapper">
-    <h2 class="form-title">{{ isEdit ? 'Update' : 'Add' }} Expense</h2>
+    <h2 class="">{{ isEdit ? 'Update' : 'Add' }} Expense</h2>
     <div class="form-content">
       <!-- Expense Name -->
       <FormInput
@@ -53,6 +53,7 @@ import { reactive, computed, watch } from 'vue';
 import { useExpenseStore } from '@/stores/Expense';
 import { useGroupStore } from '@/stores/Group';
 import FormInput from '@/components/FormInput.vue';
+import '@/assets/css/Expense.css';
 
 const props = defineProps({ expense: Object, groupId: Number });
 const emit = defineEmits(['submitted', 'group-changed']);
@@ -113,37 +114,3 @@ async function handleSubmit() {
 }
 </script>
 
-<style scoped>
-.form-wrapper {
-  max-width: 500px;
-  margin: 2rem auto;
-  background: #000;
-  padding: 2rem;
-  border-radius: 1rem;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
-}
-.form-title {
-  color: #fff;
-  text-align: center;
-  font-size: 1.75rem;
-  margin-bottom: 1.5rem;
-}
-.form-content {
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-}
-.form-button {
-  padding: 0.75rem;
-  background: #fff;
-  color: #000;
-  font-weight: bold;
-  border: none;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-.form-button:hover {
-  background: #ddd;
-}
-</style>
