@@ -10,7 +10,7 @@
 
 <script setup>
 import { ref,onMounted } from 'vue';
-import {useGroupStore} from '@/stores/group.js';
+import {useGroupStore} from '@/stores/Group.js';
 
 import GroupForm from '@/components/Group/GroupForm.vue';
 import GroupList from '@/components/Group/GroupList.vue';

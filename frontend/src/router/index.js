@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import Dashboard from '../views/Dashboard.vue';
 import Expenses from '../views/Expenses.vue';
 import Groups from '../views/Groups.vue';
-import { useUserStore } from '../stores/user';  // Import the user store
+import { useUserStore } from '../stores/User';  // Import the user store
 
 const routes = [
   { path: '/', component: Dashboard },

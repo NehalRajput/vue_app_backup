@@ -3,52 +3,42 @@
     <h2 class="form-title">{{ isEdit ? 'Update' : 'Add' }} Expense</h2>
     <div class="form-content">
       <!-- Expense Name -->
-      <div class="form-group">
-        <label class="form-label">Expense Name</label>
-        <input
-          v-model="form.expense_name"
-          type="text"
-          placeholder="e.g. Groceries"
-          class="form-input"
-          required
-        />
-      </div>
+      <FormInput
+        label="Expense Name"
+        v-model="form.expense_name"
+        placeholder="e.g. Groceries"
+        required
+      />
 
       <!-- Amount -->
-      <div class="form-group">
-        <label class="form-label">Amount (₹)</label>
-        <input
-          v-model.number="form.amount"
-          type="number"
-          placeholder="e.g. 1500"
-          class="form-input"
-          required
-        />
-      </div>
+      <FormInput
+        label="Amount (₹)"
+        v-model="form.amount"
+        type="number"
+        placeholder="e.g. 1500"
+        required
+      />
 
       <!-- Group -->
-      <div class="form-group">
-        <label class="form-label">Group</label>
-        <select v-model="form.group_id" class="form-input" required>
-          <option disabled value="">Select a group</option>
-          <option v-for="group in groups" :key="group.id" :value="group.id">
-         {{ group.group_name }} 
-
-
-          </option>
-        </select>
-      </div>
+      <FormInput
+        label="Group"
+        v-model="form.group_id"
+        type="select"
+        placeholder="Select a group"
+        required
+      >
+        <option v-for="group in groups" :key="group.id" :value="group.id">
+          {{ group.group_name }}
+        </option>
+      </FormInput>
 
       <!-- Date -->
-      <div class="form-group">
-        <label class="form-label">Date</label>
-        <input
-          v-model="form.expense_date"
-          type="date"
-          class="form-input"
-          required
-        />
-      </div>
+      <FormInput
+        label="Date"
+        v-model="form.expense_date"
+        type="date"
+        required
+      />
 
       <!-- Submit Button -->
       <button type="submit" @click="handleSubmit" class="form-button">
@@ -60,8 +50,9 @@
 
 <script setup>
 import { reactive, computed, watch } from 'vue';
-import { useExpenseStore } from '@/stores/expense';
-import { useGroupStore } from '@/stores/group';
+import { useExpenseStore } from '@/stores/Expense';
+import { useGroupStore } from '@/stores/Group';
+import FormInput from '@/components/FormInput.vue';
 
 const props = defineProps({ expense: Object, groupId: Number });
 const emit = defineEmits(['submitted', 'group-changed']);
@@ -101,11 +92,7 @@ async function handleSubmit() {
     amount: Number(form.amount),
     expense_date: form.expense_date,
     group_id: Number(form.group_id),
-
-  
   };
-
-  console.log(expense); // Log the form data before submitting
 
   try {
     if (isEdit.value) {
@@ -122,7 +109,7 @@ async function handleSubmit() {
   form.expense_name = '';
   form.amount = '';
   form.expense_date = '';
-  form.group_name = props.groupId || '';
+  form.group_id = props.groupId || '';
 }
 </script>
 
@@ -145,29 +132,6 @@ async function handleSubmit() {
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
-}
-.form-group {
-  display: flex;
-  flex-direction: column;
-}
-.form-label {
-  color: #ddd;
-  font-size: 0.9rem;
-  margin-bottom: 0.5rem;
-}
-.form-input {
-  padding: 0.75rem 1rem;
-  border: 1px solid #444;
-  border-radius: 0.5rem;
-  background: #111;
-  color: #eee;
-  font-size: 1rem;
-  outline: none;
-  transition: border-color 0.3s, background 0.3s;
-}
-.form-input:focus {
-  border-color: #fff;
-  background: #222;
 }
 .form-button {
   padding: 0.75rem;

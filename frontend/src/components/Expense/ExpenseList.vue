@@ -1,43 +1,39 @@
 <template>
   <div class="expense-list">
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Date</th>
-          <th>Amount</th>
-          <th>Group</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="expense in expenses" :key="expense.id">
-          <td>{{ expense.expense_name }}</td>
-          <td>{{ formatDate(expense.expense_date) }}</td>
-          <td class="amount">₹{{ expense.amount }}</td>
-          <td>
-            <span class="group-tag">
-              {{ getGroupName(expense.group_id) }}
-            </span>
-          </td>
-          <td class="actions">
-            <button @click="$emit('editExpense', expense)" class="edit">Edit</button>
-            <button @click="remove(expense.id)" class="delete">Delete</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-    <div v-if="!expenses.length" class="empty">
-      No expenses found
-    </div>
+    <DataTable :items="expenses" :columns="columns">
+      <!-- Amount Column -->
+      <template #amount="{ value }">
+        <span class="amount">₹{{ value }}</span>
+      </template>
+      
+      <!-- Group Column -->
+      <template #group_id="{ item }">
+        <span class="group-tag">
+          {{ getGroupName(item.group_id) }}
+        </span>
+      </template>
+      
+      <!-- Actions Column -->
+      <template #actions="{ item }">
+        <div class="actions">
+          <button @click="$emit('editExpense', item)" class="edit">Edit</button>
+          <button @click="remove(item.id)" class="delete">Delete</button>
+        </div>
+      </template>
+      
+      <!-- Empty State -->
+      <template #empty>
+        No expenses found
+      </template>
+    </DataTable>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue';
-import { useExpenseStore } from '@/stores/expense';
-import { useGroupStore } from '@/stores/group';
+import { computed, onMounted } from 'vue';
+import { useExpenseStore } from '@/stores/Expense';
+import { useGroupStore } from '@/stores/Group';
+import DataTable from '@/components/DataTable.vue';
 
 const emit = defineEmits(['editExpense']);
 const expenseStore = useExpenseStore();
@@ -45,15 +41,25 @@ const groupStore = useGroupStore();
 
 const expenses = computed(() => expenseStore.expenses);
 
+const columns = [
+  { key: 'expense_name', label: 'Name' },
+  { 
+    key: 'expense_date', 
+    label: 'Date',
+    format: (item) => formatDate(item.expense_date)
+  },
+  { key: 'amount', label: 'Amount' },
+  { key: 'group_id', label: 'Group' },
+  { key: 'actions', label: 'Actions' }
+];
+
 function formatDate(date) {
   return new Date(date).toLocaleDateString('en-IN');
 }
 
-
-
 function getGroupName(groupId) {
   const group = groupStore.groups.find(g => g.id === groupId);
-  return group ? group.group_name : 'Uncategorized'; // FIXED key
+  return group ? group.group_name : 'Uncategorized';
 }
 
 async function remove(id) {
@@ -71,31 +77,6 @@ onMounted(() => {
 <style scoped>
 .expense-list {
   width: 100%;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-th, td {
-  padding: 12px 16px;
-  text-align: left;
-  border-bottom: 1px solid #e2e8f0;
-  color:black;
-}
-
-th {
-  background-color: #f8fafc;
-  font-weight: 600;
-  color:black;
-}
-
-tr:hover {
-  background-color: #f8fafc;
 }
 
 .amount {
@@ -130,11 +111,5 @@ button {
 .delete {
   background-color: #fee2e2;
   color: #b91c1c;
-}
-
-.empty {
-  padding: 24px;
-  text-align: center;
-  color: #64748b;
 }
 </style>

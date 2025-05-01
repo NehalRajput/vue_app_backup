@@ -3,8 +3,22 @@
     <div class="login-box">
       <h2 class="title">Login</h2>
       <form @submit.prevent="submitLogin" class="form">
-        <input v-model="form.email" placeholder="Email" class="input" />
-        <input v-model="form.password" type="password" placeholder="Password" class="input" />
+        <AuthInput
+          id="email"
+          label="Email"
+          v-model="form.email"
+          type="email"
+          placeholder="Enter your email"
+          required
+        />
+        <AuthInput
+          id="password"
+          label="Password"
+          v-model="form.password"
+          type="password"
+          placeholder="Enter your password"
+          required
+        />
         <button type="submit" class="submit-button">Login</button>
       </form>
     </div>
@@ -13,17 +27,28 @@
 
 <script setup>
 import { ref } from 'vue';
-import { useUserStore } from '../stores/user';
+import { useUserStore } from '../stores/User';
 import { useRouter } from 'vue-router';
+import AuthInput from '@/components/AuthInput.vue';
 
 const router = useRouter();
 const store = useUserStore();
 
-const form = ref({ email: '', password: '' });
+const form = ref({
+  email: '',
+  password: ''
+});
 
 const submitLogin = async () => {
-  const success = await store.login(form.value);
-  if (success) router.push('/groups');
+  try {
+    const success = await store.login(form.value);
+    if (success) {
+      router.push('/groups');
+    }
+  } catch (error) {
+    console.error('Login failed:', error);
+    // Here you could add error handling logic
+  }
 };
 </script>
 
@@ -38,8 +63,8 @@ const submitLogin = async () => {
 
 .login-box {
   display: flex;
-  flex-direction: column;      /* Stack title over form */
-  align-items: center;         /* Center horizontally */
+  flex-direction: column;
+  align-items: center;
   background-color: #fff;
   padding: 24px;
   border-radius: 8px;
@@ -51,40 +76,26 @@ const submitLogin = async () => {
 .title {
   font-size: 2rem;
   color: #000;
-  margin-bottom: 16px;         /* Space below title */
-  text-align: center;          /* Center text */
+  margin-bottom: 24px;
+  text-align: center;
   width: 100%;
 }
 
 .form {
-  width: 100%;                 /* Full width inside box */
-}
-
-.input {
   width: 100%;
-  padding: 12px;
-  margin-bottom: 12px;
-  border: 1px solid #000;
-  border-radius: 4px;
-  font-size: 1rem;
-  outline: none;
-  color: #000;
-}
-
-.input:focus {
-  border-color: #000;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
 .submit-button {
   width: 100%;
   padding: 12px;
+  margin-top: 12px;
   background-color: #000;
   color: #fff;
   font-size: 1rem;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
 .submit-button:hover {

@@ -123,8 +123,8 @@
 
 <script setup>
 import { computed, onMounted, ref, watch } from 'vue';
-import { useExpenseStore } from '@/stores/expense';
-import { useGroupStore } from '@/stores/group';
+import { useExpenseStore } from '@/stores/Expense';
+import { useGroupStore } from '@/stores/Group';
 import { Chart, registerables } from 'chart.js';
 import api from '@/services/api';
 Chart.register(...registerables);
