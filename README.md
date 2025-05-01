@@ -9,7 +9,7 @@ This is an expense tracker application that uses Vue 3 for the frontend and Lara
 - **Authentication**: Laravel Sanctum
 - **State Management**: Pinia (for Vue)
 - **Charting**: Chart.js
-- **API**: REST API built with Laravel
+- **API**:  API built with Laravel
 
 ## Features
 
