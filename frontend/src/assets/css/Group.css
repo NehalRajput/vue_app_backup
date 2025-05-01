@@ -1,82 +1,81 @@
 .form-container {
-    max-width: 500px;
-    margin: 2rem auto;
-    padding: 2rem;
-  
-    border-radius: 1rem;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
-         
-    font-family: 'Inter', sans-serif;
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #f9f9f9; /* Light background */
+  border-radius: 1rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  font-family: 'Inter', sans-serif;
+}
+
+.form-title {
+  text-align: center;
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: #222;
+}
+
+.form-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Input fields */
+.form-container input {
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-container input:focus {
+  border-color: #3b82f6; /* Blue border on focus */
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+/* Submit button */
+.submit-button {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  margin-top: 1.5rem;
+  background: #3b82f6;
+  color: #fff;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.submit-button:hover {
+  background: #2563eb; /* Darker blue on hover */
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .form-container {
+    padding: 1.5rem;
   }
-  
+
   .form-title {
-    text-align: center;
-    font-size: 1.75rem;
-    font-weight: 600;
-    margin-bottom: 1.5rem;
-    color: black;  
+    font-size: 1.5rem;
+    color: #222;
   }
-  
-  .form-content {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-  
-  /* Input fields */
-  .form-container input {
-    padding: 0.75rem 1rem;
-    border-radius: 0.5rem;
-    border: 1px solid #fff; 
-      
-    font-size: 1rem;
-    outline: none;
-    transition: border 0.2s ease;
-  }
-  
-  .form-container input:focus {
-    border-color: #fff;     /* White focus border */
-  }
-  
-  /* Submit button */
-  .submit-button {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    margin-top: 1.5rem;
-    background: #fff;       /* White background */
-            /* Black text */
-    border: 1px solid #fff; /* White border */
-    border-radius: 0.5rem;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.3s ease, color 0.3s ease;
-  }
-  
-  .submit-button:hover {
-        /* Dark hover */
-    color: #fff;            /* White text on hover */
-  }
-  
-  /* Responsive adjustments */
-  @media (max-width: 600px) {
-    .form-container {
-      padding: 1.5rem;
-    }
-  
-    .form-title {
-      font-size: 1.5rem;
-      color:black;
-    }
-  }
-  
+}
+
+/* Action buttons */
 .actions {
   display: flex;
   justify-content: flex-end;
   gap: 8px;
 }
 
-/* Base button style */
 button {
   padding: 8px 16px;
   border-radius: 6px;
@@ -91,27 +90,26 @@ button {
   min-width: 80px;
 }
 
-/* Edit button - secondary style */
+/* Edit button */
 .edit {
-  background-color: #e0f2fe; /* Light blue background */
-  color: #0369a1; /* Blue text */
-  border: 1px solid #bae6fd; /* Light blue border */
+  background-color: #e0f7ff;
+  color: #0369a1;
+  border: 1px solid #bae6fd;
 }
 
 .edit:hover {
-  background-color: #bae6fd; /* Lighter blue on hover */
-  color: #fff; /* White text on hover */
+  background-color: #bae6fd;
+  color: #fff;
 }
 
-/* Delete button - danger style */
+/* Delete button */
 .delete {
-  background-color: #fee2e2; /* Light red background */
-  color: #b91c1c; /* Red text */
-  border: 1px solid #fecdcd; /* Light red border */
+  background-color: #ffeaea;
+  color: #b91c1c;
+  border: 1px solid #fecdcd;
 }
 
 .delete:hover {
-  background-color: #fecdcd; /* Lighter red on hover */
-  color: #fff; /* White text on hover */
+  background-color: #fecdcd;
+  color: #fff;
 }
-

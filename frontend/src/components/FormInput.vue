@@ -67,15 +67,18 @@
 }
 
 .form-input {
+  width: 100%;
   padding: 0.75rem 1rem;
-  border: 1px solid #ccc;      /* Light border */
+  border: 1px solid #ddd;
   border-radius: 0.5rem;
-  background: #fff;             /* White background */
-  color: #333;                  /* Dark text */
+  background: #fff;
+  color: #333;
   font-size: 1rem;
   outline: none;
   transition: border-color 0.3s, background 0.3s;
+  box-sizing: border-box;
 }
+
 
 .form-input:focus {
   border-color: #007bff;        /* Blue focus border */
