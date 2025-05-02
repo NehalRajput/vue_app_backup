@@ -1,115 +1,128 @@
-.form-container {
+.form-wrapper {
   max-width: 500px;
   margin: 2rem auto;
+  background: #f9f9f9; /* Light background */
   padding: 2rem;
-  background-color: #f9f9f9; /* Light background */
   border-radius: 1rem;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-  font-family: 'Inter', sans-serif;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1); /* Lighter shadow */
+  color: #333; /* Dark text */
 }
 
 .form-title {
   text-align: center;
-  font-size: 1.75rem;
+  font-size: 2rem;
   font-weight: 600;
   margin-bottom: 1.5rem;
-  color: #222;
+  color: black; /* Dark title */
 }
 
 .form-content {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  color: black;
 }
 
-/* Input fields */
-.form-container input {
+input,
+select,
+textarea {
   padding: 0.75rem 1rem;
   border-radius: 0.5rem;
-  border: 1px solid #ccc;
-  background-color: #fff;
+  border: 1px solid #ddd; /* Light border */
+  background: #fff; /* White background */
+  color: #333; /* Dark text */
   font-size: 1rem;
   outline: none;
-  transition: border 0.2s ease, box-shadow 0.2s ease;
+  transition: border 0.2s;
 }
 
-.form-container input:focus {
-  border-color: #3b82f6; /* Blue border on focus */
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #007bff; /* Blue focus border */
 }
 
-/* Submit button */
-.submit-button {
-  width: 100%;
+.form-button {
   padding: 0.75rem 1rem;
-  margin-top: 1.5rem;
-  background: #3b82f6;
-  color: #fff;
+  background: #007bff; /* Blue background */
+  color: #fff; /* White text */
+  font-weight: 600;
   border: none;
   border-radius: 0.5rem;
-  font-size: 1rem;
-  font-weight: 600;
   cursor: pointer;
-  transition: background 0.3s ease, color 0.3s ease;
+  font-size: 1rem;
+  transition: background 0.3s ease;
 }
 
-.submit-button:hover {
-  background: #2563eb; /* Darker blue on hover */
+.form-button:hover {
+  background: #0056b3; /* Darker blue on hover */
 }
 
-/* Responsive adjustments */
-@media (max-width: 600px) {
-  .form-container {
-    padding: 1.5rem;
-  }
-
-  .form-title {
-    font-size: 1.5rem;
-    color: #222;
-  }
+.expense-list {
+  width: 100%;
+  background-color: #f9f9f9; /* Light background */
+  padding: 16px;
+  border-radius: 12px;
+  color: #333; /* Dark text */
 }
 
-/* Action buttons */
+.amount {
+  font-weight: 600;
+  color: #333; /* Dark color for amount */
+}
+
+.group-tag {
+  background-color: #e0e0e0; /* Light gray background */
+  color: #333; /* Dark text */
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
 .actions {
   display: flex;
-  justify-content: flex-end;
   gap: 8px;
 }
 
 button {
-  padding: 8px 16px;
+  padding: 6px 12px;
   border-radius: 6px;
-  font-size: 0.875rem;
+  font-size: 0.85rem;
   font-weight: 500;
   cursor: pointer;
   border: none;
-  transition: background-color 0.3s ease, color 0.3s ease;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 80px;
+  transition: 0.2s ease;
 }
 
-/* Edit button */
 .edit {
-  background-color: #e0f7ff;
-  color: #0369a1;
-  border: 1px solid #bae6fd;
+  background-color: #fff; /* White background for edit */
+  color: #333; /* Dark text */
 }
 
 .edit:hover {
-  background-color: #bae6fd;
-  color: #fff;
+  background-color: #e0e0e0; /* Light gray on hover */
 }
 
-/* Delete button */
 .delete {
-  background-color: #ffeaea;
-  color: #b91c1c;
-  border: 1px solid #fecdcd;
+  background-color: #fff; /* White background for delete */
+  color: #333; /* Dark text */
 }
 
 .delete:hover {
-  background-color: #fecdcd;
-  color: #fff;
+  background-color: #e0e0e0; /* Light gray on hover */
+}
+
+/* Optional: Table tweaks */
+.expense-list table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 16px;
+}
+
+.expense-list th,
+.expense-list td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd; /* Light border */
 }

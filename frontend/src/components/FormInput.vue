@@ -81,7 +81,7 @@
 
 
 .form-input:focus {
-  border-color: #007bff;        /* Blue focus border */
-  background: #f0f8ff;          /* Very light blue background on focus */
+  border-color: #007bff;        
+  background: #f0f8ff;         
 }
 </style>
