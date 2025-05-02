@@ -3,9 +3,27 @@
     <div class="section-header">
       <h2>Recent Expenses</h2>
       <div class="action-buttons">
-        <button @click="handleExportCSV" class="action-button">⬇ Export CSV</button>
-        <button @click="exportPDF" class="action-button">⬇ Download PDF</button>
-        <router-link to="/expenses" class="view-all">View All</router-link>
+        <button 
+  @click="handleExportCSV" 
+  class="action-button"
+  :disabled="csvLoading"
+>
+  <span v-if="!csvLoading">⬇ Export CSV</span>
+  <span v-else class="button-loading">
+    <span class="spinner"></span> Exporting...
+  </span>
+</button>
+<button 
+  @click="exportPDF" 
+  class="action-button"
+  :disabled="pdfLoading"
+>
+  <span v-if="!pdfLoading">⬇ Download PDF</span>
+  <span v-else class="button-loading">
+    <span class="spinner"></span> Exporting...
+  </span>
+</button>      
+<router-link to="/expenses" class="view-all">View All</router-link>
       </div>
     </div>
 
@@ -97,6 +115,8 @@ import '@/assets/css/dashboard.css';
 import { exportCSV } from "@/utils/exportCSV";
 
 Chart.register(...registerables);
+const csvLoading = ref(false);
+const pdfLoading = ref(false); 
 
 const expenseStore = useExpenseStore();
 const groupStore = useGroupStore();
@@ -255,11 +275,20 @@ const handleDeleteGroup = (id) => {
   }
 };
 
-const handleExportCSV = () => {
-  exportCSV();
+const handleExportCSV = async () => {
+  csvLoading.value = true;
+  try {
+    await exportCSV();
+  } catch (error) {
+    console.error("CSV Export Failed:", error);
+    // Optionally show error message to user
+  } finally {
+    csvLoading.value = false;
+  }
 };
 
 const exportPDF = async () => {
+  pdfLoading.value = true;
   try {
     const response = await api.get("/api/expenses/export-pdf", {
       responseType: 'blob',
@@ -279,6 +308,8 @@ const exportPDF = async () => {
     link.remove();
   } catch (error) {
     console.error("PDF Export Failed:", error);
+  } finally {
+    pdfLoading.value = false;
   }
 };
 </script>

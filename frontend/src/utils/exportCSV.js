@@ -9,6 +9,9 @@ export const exportCSV = async () => {
       }
     });
 
+    // Add small delay to ensure loading state is visible (optional)
+    await new Promise(resolve => setTimeout(resolve, 500));
+
     const blob = new Blob([response.data], { type: 'text/csv' });
     const url = window.URL.createObjectURL(blob);
 
@@ -18,7 +21,11 @@ export const exportCSV = async () => {
     document.body.appendChild(link);
     link.click();
     link.remove();
+    
+    // Clean up URL object
+    window.URL.revokeObjectURL(url);
   } catch (error) {
     console.error("CSV Export Failed:", error);
+    throw error; // Re-throw to handle in component
   }
 };
