@@ -33,7 +33,7 @@
 import { computed, onMounted } from 'vue';
 import { useExpenseStore } from '@/stores/Expense';
 import { useGroupStore } from '@/stores/Group';
-import '@/assets/css/Expense.css';
+
 import DataTable from '@/components/DataTable.vue';
 
 const emit = defineEmits(['editExpense']);

@@ -1,0 +1,101 @@
+/* Common Form Styles - Use these for both Expense and Group forms */
+.form-wrapper,
+.form-container,
+.form-group {
+  --form-bg: #f9f9f9;
+  --form-text: #333;
+  --form-input-bg: #fff;
+  --form-input-border: #ddd;
+  --form-focus-border: #007bff;
+  --form-focus-bg: #f0f8ff;
+  --form-button-bg: #007bff;
+  --form-button-hover: #0056b3;
+  --form-button-text: #fff;
+}
+
+/* Form Container */
+.form-wrapper,
+.form-container {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: var(--form-bg);
+  border-radius: 1rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  color: var(--form-text);
+}
+
+/* Form Title */
+.form-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: var(--form-text);
+}
+
+/* Form Content */
+.form-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  color: var(--form-text);
+}
+
+/* Input Fields - Standardized */
+.form-input,
+.form-wrapper input,
+.form-wrapper select,
+.form-wrapper textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--form-input-border);
+  background: var(--form-input-bg);
+  color: var(--form-text);
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.form-input:focus,
+.form-wrapper input:focus,
+.form-wrapper select:focus,
+.form-wrapper textarea:focus {
+  border-color: var(--form-focus-border);
+  background: var(--form-focus-bg);
+}
+
+/* Buttons - Standardized */
+.form-button,
+.submit-button {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: var(--form-button-bg);
+  color: var(--form-button-text);
+  font-weight: 600;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s ease;
+}
+
+.form-button:hover,
+.submit-button:hover {
+  background: var(--form-button-hover);
+}
+
+/* Form Group (for FormInput component) */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.form-label {
+  color: var(--form-text);
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}

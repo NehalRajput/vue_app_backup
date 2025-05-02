@@ -53,7 +53,7 @@ import { reactive, computed, watch } from 'vue';
 import { useExpenseStore } from '@/stores/Expense';
 import { useGroupStore } from '@/stores/Group';
 import FormInput from '@/components/FormInput.vue';
-import '@/assets/css/Expense.css';
+
 
 const props = defineProps({ expense: Object, groupId: Number });
 const emit = defineEmits(['submitted', 'group-changed']);

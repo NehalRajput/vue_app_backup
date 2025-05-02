@@ -1,5 +1,7 @@
 <template>
-    <div class="form-group">
+    
+  <div class="form-group">
+
       <label v-if="label" class="form-label">{{ label }}</label>
       <input
         v-if="type !== 'select'"
@@ -24,6 +26,7 @@
   </template>
   
   <script setup>
+  import '@/assets/css/form.css';
   defineProps({
     label: String,
     modelValue: [String, Number],
@@ -52,36 +55,3 @@
   }
   </script>
   
-  <style scoped>
-.form-group {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 1rem;
-}
-
-.form-label {
-  color: #333; /* Dark label */
-  font-size: 0.9rem;
-  margin-bottom: 0.5rem;
-  
-}
-
-.form-input {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  border: 1px solid #ddd;
-  border-radius: 0.5rem;
-  background: #fff;
-  color: #333;
-  font-size: 1rem;
-  outline: none;
-  transition: border-color 0.3s, background 0.3s;
-  box-sizing: border-box;
-}
-
-
-.form-input:focus {
-  border-color: #007bff;        
-  background: #f0f8ff;         
-}
-</style>

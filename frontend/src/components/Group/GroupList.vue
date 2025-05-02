@@ -25,7 +25,7 @@
 import { onMounted, defineEmits } from 'vue';
 import { useGroupStore } from '@/stores/Group';
 import DataTable from '@/components/DataTable.vue';
-import '@/assets/css/Group.css';
+
 
 defineEmits(['editGroup']);
 const groupStore = useGroupStore();

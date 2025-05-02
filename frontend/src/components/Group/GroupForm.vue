@@ -2,16 +2,18 @@
   <form @submit.prevent="handleSubmit" class="form-container">
     <h2 class="form-title">{{ formTitle }}</h2>
     
-    <FormInput
-      label="Group Name"
-      v-model="form.group_name"
-      placeholder="e.g., Vacation, Home, etc."
-      required
-    />
-    
-    <button type="submit" class="submit-button">
-      {{ formButtonText }}
-    </button>
+    <div class="form-content">
+      <FormInput
+        label="Group Name"
+        v-model="form.group_name"
+        placeholder="e.g., Vacation, Home, etc."
+        required
+      />
+      
+      <button type="submit" class="submit-button">
+        {{ formButtonText }}
+      </button>
+    </div>
   </form>
 </template>
 
@@ -19,7 +21,8 @@
 import { ref, watch } from 'vue';
 import { useGroupStore } from '@/stores/Group';
 import FormInput from '@/components/FormInput.vue';
-import '@/assets/css/Group.css';
+import '@/assets/css/form.css'
+
 
 
 const groupStore = useGroupStore();

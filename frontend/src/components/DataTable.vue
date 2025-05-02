@@ -25,6 +25,7 @@
   
   <script setup>
   import { defineProps } from 'vue';
+  import '@/assets/css/Datatable.css';
   
   const props = defineProps({
     items: {
@@ -51,38 +52,4 @@
   }
   </script>
   
-  <style scoped>
-  .data-table {
-    width: 100%;
-    border: 1px solid #e2e8f0;
-    border-radius: 8px;
-    overflow: hidden;
-  }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  th, td {
-    padding: 12px 16px;
-    text-align: left;
-    border-bottom: 1px solid #e2e8f0;
-    color: black;
-  }
-  
-  th {
-    background-color: #f8fafc;
-    font-weight: 600;
-  }
-  
-  tr:hover {
-    background-color: #f8fafc;
-  }
-  
-  .empty {
-    padding: 24px;
-    text-align: center;
-    color: #64748b;
-  }
-  </style>
+ 
